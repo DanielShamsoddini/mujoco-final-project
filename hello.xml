@@ -6,6 +6,7 @@
 
 		<body pos="0 0 0.5">
 			<geom size ="0.1" rgba="0 0 1 1"/>
+			<joint type="free"/>
 			<body pos="0.2 0 0">
 				<joint name="onejoint" pos ="-0.1 0 0" type="ball"  limited="true" range="0 60"/>
 				<geom size ="0.1" rgba="0 0 1 1"/>
