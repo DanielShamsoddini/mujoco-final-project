@@ -5,7 +5,7 @@ import os
 import random
 
 xml_path = 'hello.xml' #xml file (assumes this is in the same folder as this file)
-simend = 20 #simulation time
+simend = 30 #simulation time
 print_camera_config = 0 #set to 1 to print camera config
                         #this is useful for initializing view of the model)
 
@@ -26,7 +26,7 @@ def controller(model, data):
     #print(data.ctrl)
     
     for i in range(data.ctrl.shape[0]):
-        data.ctrl[i] = random.uniform(-1,1)
+        data.ctrl[i] = random.uniform(-5,5)
         
     
 
@@ -111,7 +111,7 @@ data = mj.MjData(model)                # MuJoCo data
 cam = mj.MjvCamera()                        # Abstract camera
 opt = mj.MjvOption()                        # visualization options
 
-#opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
+opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
 # Init GLFW, create window, make OpenGL context current, request v-sync
 glfw.init()
 window = glfw.create_window(1200, 900, "Demo", None, None)
@@ -124,7 +124,7 @@ mj.mjv_defaultOption(opt)
 scene = mj.MjvScene(model, maxgeom=10000)
 context = mj.MjrContext(model, mj.mjtFontScale.mjFONTSCALE_150.value)
 
-#opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
+opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
 # install GLFW mouse and keyboard callbacks
 glfw.set_key_callback(window, keyboard)
 glfw.set_cursor_pos_callback(window, mouse_move)
@@ -148,6 +148,7 @@ while not glfw.window_should_close(window):
 
     while (data.time - time_prev < 1.0/60.0):
         mj.mj_step(model, data)
+        print(data.qpos)
 
     if (data.time>=simend):
         break;

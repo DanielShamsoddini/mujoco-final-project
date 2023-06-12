@@ -3,31 +3,32 @@
 	<worldbody>
         <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
 		<geom type="plane" size="10 10 0.1" rgba=".9 0 0 1"/>
-		<body pos="0 0 0.11">
+
+		<body pos="0 0 0.5">
 			<geom size ="0.1" rgba="0 0 1 1"/>
-			<joint name="onejoint" type="ball" pos="0.1 0 0" limited="true" range="0 45"/>
-			<geom pos="0.2 0 0" size ="0.1" rgba="0 1 0 1"/>
-			<body pos="0.3 0 0">
-				<joint name="threejoint" type="ball" limited = "true" range="0 45"/>
-				<geom size ="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-				<body pos="0.2 0 0">
-					<joint name="fourjoint" type="ball" limited = "true" range="0 45"/>
-					<geom size ="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-					<body pos="0.2 0 0">
-						<joint name="fivejoint" type="ball" limited = "true" range="0 45"/>
+			<body pos="0.2 0 0">
+				<joint name="onejoint" pos ="-0.1 0 0" type="ball"  limited="true" range="0 60"/>
+				<geom size ="0.1" rgba="0 0 1 1"/>
+					<body pos="0.1 0 0">
+						<joint name="threejoint" type="ball" limited = "true" range="0 60"/>
 						<geom size ="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+						<body pos="0.2 0 0">
+							<joint name="fourjoint" type="ball" limited = "true" range="0 60"/>
+							<geom size ="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+							<body pos="0.2 0 0">
+								<joint name="fivejoint" type="ball" limited = "true" range="0 60"/>
+								<geom size ="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+							</body>
+						</body>
 					</body>
-				</body>
-
 			</body>
-
 		</body>
 
 	</worldbody>
 	<actuator>
-		<motor name="motor1" joint="onejoint" gear="1"/>
-		<motor name="motor3" joint="threejoint" gear="1"/>
-		<motor name="motor4" joint="fourjoint" gear="1"/>
-		<motor name="motor5" joint="fivejoint" gear="1"/>
+		<motor name="motor1" joint="onejoint" gear="10"/>
+		<motor name="motor3" joint="threejoint" gear="10"/>
+		<motor name="motor4" joint="fourjoint" gear="10"/>
+		<motor name="motor5" joint="fivejoint" gear="10"/>
 	</actuator>
 </mujoco>
