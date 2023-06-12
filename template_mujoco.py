@@ -2,6 +2,7 @@ import mujoco as mj
 from mujoco.glfw import glfw
 import numpy as np
 import os
+import random
 
 xml_path = 'hello.xml' #xml file (assumes this is in the same folder as this file)
 simend = 20 #simulation time
@@ -22,8 +23,11 @@ def init_controller(model,data):
 
 def controller(model, data):
     #put the controller here. This function is called inside the simulation.
-    print(data.ctrl)
-    data.ctrl[0] = 0.1
+    #print(data.ctrl)
+    
+    for i in range(data.ctrl.shape[0]):
+        data.ctrl[i] = random.uniform(-1,1)
+        
     
 
 def keyboard(window, key, scancode, act, mods):
@@ -107,7 +111,7 @@ data = mj.MjData(model)                # MuJoCo data
 cam = mj.MjvCamera()                        # Abstract camera
 opt = mj.MjvOption()                        # visualization options
 
-opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
+#opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
 # Init GLFW, create window, make OpenGL context current, request v-sync
 glfw.init()
 window = glfw.create_window(1200, 900, "Demo", None, None)
@@ -120,7 +124,7 @@ mj.mjv_defaultOption(opt)
 scene = mj.MjvScene(model, maxgeom=10000)
 context = mj.MjrContext(model, mj.mjtFontScale.mjFONTSCALE_150.value)
 
-opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
+#opt.flags[mj.mjtVisFlag.mjVIS_JOINT] = True
 # install GLFW mouse and keyboard callbacks
 glfw.set_key_callback(window, keyboard)
 glfw.set_cursor_pos_callback(window, mouse_move)
