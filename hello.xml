@@ -1,0 +1,16 @@
+<mujoco>
+	<option gravity="0 0 -9.81" />
+	<worldbody>
+        <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
+		<geom type="plane" size="1 1 0.1" rgba=".9 0 0 1"/>
+		<body pos="0 0 0.1">
+			<geom size ="0.1" rgba="0 0 1 1"/>
+			<joint name="onejoint" type="hinge" axis="0 0 1" pos="0.1 0 0"/>
+			<geom pos="0.2 0 0" size ="0.1" rgba="0 1 0 1"/>
+		</body>
+
+	</worldbody>
+	<actuator>
+		<motor name="motor1" joint="onejoint" gear="1"/>
+	</actuator>
+</mujoco>
