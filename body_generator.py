@@ -1,94 +1,182 @@
 import xml.etree.ElementTree as ET
-import random
 import xml.dom.minidom as minidom
 
-# Function to generate a random position in Mujoco format
-def generate_random_position(spheres, radius):
-    if not spheres:
-        return "0 0 0"  # First sphere at the origin
+def generate_xml_code():
+    # Create the root element
+    root = ET.Element("mujoco")
 
-    while True:
-        pos = f"{random.uniform(-1, 1)} {random.uniform(-1, 1)} {random.uniform(-1, 1)}"
-        collision = False
-        for sphere in spheres:
-            sphere_pos = sphere.find("body").get("pos")
-            sphere_radius = float(sphere.find("body/geom").get("size")) / 2
-            dist = sum((float(a) - float(b)) ** 2 for a, b in zip(sphere_pos.split(), pos.split())) ** 0.5
-            if dist < 2 * radius + sphere_radius:  # Adjusted collision check
-                collision = True
-                break
-        if not collision:
-            return pos
+    # Create the option element
+    option = ET.SubElement(root, "option")
+    option.set("gravity", "0 0 -9.81")
 
-# Function to generate a random sphere element
-def generate_sphere(index, pos):
-    sphere = ET.Element("body")
-    sphere.set("name", f"sphere{index}")
-    geom = ET.SubElement(sphere, "geom")
-    geom.set("name", f"geom{index}")
-    geom.set("type", "sphere")
-    geom.set("size", "0.1")
-    geom.set("rgba", "1 0 0 1")
-    sphere.set("pos", pos)
-    return sphere
+    # Create the worldbody element
+    worldbody = ET.SubElement(root, "worldbody")
 
-# Create the root element
-root = ET.Element("mujoco")
+    # Create the light element
+    light = ET.SubElement(worldbody, "light")
+    light.set("diffuse", ".5 .5 .5")
+    light.set("pos", "0 0 3")
+    light.set("dir", "0 0 -1")
 
-# Create the worldbody element
-worldbody = ET.SubElement(root, "worldbody")
+    # Create the plane geom element
+    plane_geom = ET.SubElement(worldbody, "geom")
+    plane_geom.set("type", "plane")
+    plane_geom.set("size", "10 10 0.1")
+    plane_geom.set("rgba", ".9 0 0 1")
 
-# Add a plane
-plane = ET.SubElement(worldbody, "geom")
-plane.set("name", "plane")
-plane.set("type", "plane")
-plane.set("size", "1 1 0.02")
-plane.set("rgba", "0.9 0.9 0.9 1")
+    # Create the nested body elements
+    body = ET.SubElement(worldbody, "body")
+    body.set("pos", "0 0 0.5")
 
-# Generate the spheres
-num_spheres = 2
-spheres = []
-radius = 0.1  # Sphere radius
-parent = worldbody  # Parent element to which sub-bodies will be appended
+    geom1 = ET.SubElement(body, "geom")
+    geom1.set("size", "0.1")
+    geom1.set("rgba", "0 0 1 1")
 
-for i in range(num_spheres):
-    pos = generate_random_position(spheres, radius)
-    sphere = generate_sphere(i, pos)
+    joint1 = ET.SubElement(body, "joint")
+    joint1.set("type", "free")
 
-    # Create a sub-body for the sphere
-    sub_body = ET.Element("body")
-    sub_body.set("name", f"subbody{i}")
-    sub_body.append(sphere)
+    site1 = ET.SubElement(body, "site")
+    site1.set("name", "site1")
+    site1.set("size", "0.1")
+    site1.set("rgba", "1 0 0 1")
 
-    if i > 0:
-        # Generate a ball joint between the current and previous sub-bodies
-        ball_joint = ET.SubElement(sub_body, "joint")
-        ball_joint.set("name", f"joint_{sub_body.get('name')}_{spheres[i-1].get('name')}")
-        ball_joint.set("type", "ball")
-        ball_joint.set("limited", "false")
+    body2 = ET.SubElement(body, "body")
+    body2.set("pos", "0.2 0 0")
+
+    joint2 = ET.SubElement(body2, "joint")
+    joint2.set("name", "onejoint")
+    joint2.set("pos", "-0.1 0 0")
+    joint2.set("type", "ball")
+    joint2.set("limited", "true")
+    joint2.set("range", "0 60")
+
+    geom2 = ET.SubElement(body2, "geom")
+    geom2.set("size", "0.1")
+    geom2.set("rgba", "0 0 1 1")
+
+    site2 = ET.SubElement(body2, "site")
+    site2.set("name", "site2")
+    site2.set("pos", "0 0 0")
+    site2.set("size", "0.1")
+    site2.set("rgba", "1 0 0 1")
+
+    body3 = ET.SubElement(body2, "body")
+    body3.set("pos", "0.1 0 0")
+
+    joint3 = ET.SubElement(body3, "joint")
+    joint3.set("name", "threejoint")
+    joint3.set("type", "ball")
+    joint3.set("limited", "true")
+    joint3.set("range", "0 60")
+
+    geom3 = ET.SubElement(body3, "geom")
+    geom3.set("size", "0.1")
+    geom3.set("rgba", "0 0 1 1")
+    geom3.set("pos", "0.1 0 0")
+
+    site3 = ET.SubElement(body3, "site")
+    site3.set("name", "site3")
+    site3.set("pos", "0.1 0 0")
+    site3.set("size", "0.1")
+    site3.set("rgba", "1 0 0 1")
+
+    body4 = ET.SubElement(body3, "body")
+    body4.set("pos", "0.2 0 0")
+
+    joint4 = ET.SubElement(body4, "joint")
+    joint4.set("name", "fourjoint")
+    joint4.set("type", "ball")
+    joint4.set("limited", "true")
+    joint4.set("range", "0 60")
+
+    geom4 = ET.SubElement(body4, "geom")
+    geom4.set("size", "0.1")
+    geom4.set("rgba", "0 0 1 1")
+    geom4.set("pos", "0.1 0 0")
+
+    site4 = ET.SubElement(body4, "site")
+    site4.set("name", "site4")
+    site4.set("pos", "0.1 0 0")
+    site4.set("size", "0.1")
+    site4.set("rgba", "1 0 0 1")
+
+    body5 = ET.SubElement(body4, "body")
+    body5.set("pos", "0.2 0 0")
+
+    joint5 = ET.SubElement(body5, "joint")
+    joint5.set("name", "fivejoint")
+    joint5.set("type", "ball")
+    joint5.set("limited", "true")
+    joint5.set("range", "0 60")
+
+    geom5 = ET.SubElement(body5, "geom")
+    geom5.set("size", "0.1")
+    geom5.set("rgba", "0 0 1 1")
+    geom5.set("pos", "0.1 0 0")
+
+    site5 = ET.SubElement(body5, "site")
+    site5.set("name", "site5")
+    site5.set("size", "0.1")
+    site5.set("pos", "0.1 0 0")
+    site5.set("rgba", "1 0 0 1")
+
+    # Create the actuator element
+    actuator = ET.SubElement(root, "actuator")
+
+    motor1 = ET.SubElement(actuator, "motor")
+    motor1.set("name", "motor1")
+    motor1.set("joint", "onejoint")
+    motor1.set("gear", "1")
+
+    motor3 = ET.SubElement(actuator, "motor")
+    motor3.set("name", "motor3")
+    motor3.set("joint", "threejoint")
+    motor3.set("gear", "1")
+
+    motor4 = ET.SubElement(actuator, "motor")
+    motor4.set("name", "motor4")
+    motor4.set("joint", "fourjoint")
+    motor4.set("gear", "1")
+
+    motor5 = ET.SubElement(actuator, "motor")
+    motor5.set("name", "motor5")
+    motor5.set("joint", "fivejoint")
+    motor5.set("gear", "1")
+
+    # Create the sensor element
+    sensor = ET.SubElement(root, "sensor")
+
+    touch1 = ET.SubElement(sensor, "touch")
+    touch1.set("name", "test1")
+    touch1.set("site", "site1")
+
+    touch2 = ET.SubElement(sensor, "touch")
+    touch2.set("name", "test2")
+    touch2.set("site", "site2")
+
+    touch3 = ET.SubElement(sensor, "touch")
+    touch3.set("name", "test3")
+    touch3.set("site", "site3")
+
+    touch4 = ET.SubElement(sensor, "touch")
+    touch4.set("name", "test4")
+    touch4.set("site", "site4")
+
+    touch5 = ET.SubElement(sensor, "touch")
+    touch5.set("name", "test5")
+    touch5.set("site", "site5")
+
+    # Create and return the XML tree
+    tree = ET.ElementTree(root)
+    return tree
 
 
-    # Append the sub-body to the parent
-    parent.append(sub_body)
+# Test the program
+generated_tree = generate_xml_code()
+generated_code = ET.tostring(generated_tree.getroot(), encoding="unicode")
+dom = minidom.parseString(generated_code)
 
-    spheres.append(sub_body)
-
-    # Set the current sub-body as the parent for the next iteration
-    parent = sub_body
-
-# Create an ElementTree object with the root element
-tree = ET.ElementTree(root)
-
-# Write the XML to a string
-xml_string = ET.tostring(root, encoding="utf-8")
-
-# Prettify the XML string
-dom = minidom.parseString(xml_string)
-pretty_xml_string = dom.toprettyxml(indent="  ")
-
-# Remove the default XML declaration added by minidom
-pretty_xml_string = "\n".join(line for line in pretty_xml_string.split("\n") if line.strip())
-
-# Write the prettified XML to a file
-with open("output.xml", "w") as file:
-    file.write(pretty_xml_string)
+# Output the pretty XML to a file
+output_file = "output.xml"
+with open(output_file, "w") as file:
+    file.write(dom.toprettyxml())

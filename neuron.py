@@ -79,7 +79,7 @@
 #             print(f"{output_node}: {outputs[output_node]}")
 import numpy as np
 import networkx as nx
-import matplotlib.pyplot as plt
+
 class NEURALNETWORK:
     def __init__(self,input_size, hidden_size, output_size):
         # Create a Directed Acyclic Graph (DAG)

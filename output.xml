@@ -1,17 +1,46 @@
 <?xml version="1.0" ?>
 <mujoco>
-  <worldbody>
-    <geom name="plane" type="plane" size="1 1 0.02" rgba="0.9 0.9 0.9 1"/>
-    <body name="subbody0">
-      <body name="sphere0" pos="0 0 0">
-        <geom name="geom0" type="sphere" size="0.1" rgba="1 0 0 1"/>
-      </body>
-      <body name="subbody1">
-        <body name="sphere1" pos="0.5527927898108473 -0.6114098691420309 0.6491074361467932">
-          <geom name="geom1" type="sphere" size="0.1" rgba="1 0 0 1"/>
-        </body>
-        <joint name="joint_subbody1_subbody0" type="ball" limited="false"/>
-      </body>
-    </body>
-  </worldbody>
+	<option gravity="0 0 -9.81"/>
+	<worldbody>
+		<light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
+		<geom type="plane" size="10 10 0.1" rgba=".9 0 0 1"/>
+		<body pos="0 0 0.5">
+			<geom size="0.1" rgba="0 0 1 1"/>
+			<joint type="free"/>
+			<site name="site1" size="0.1" rgba="1 0 0 1"/>
+			<body pos="0.2 0 0">
+				<joint name="onejoint" pos="-0.1 0 0" type="ball" limited="true" range="0 60"/>
+				<geom size="0.1" rgba="0 0 1 1"/>
+				<site name="site2" pos="0 0 0" size="0.1" rgba="1 0 0 1"/>
+				<body pos="0.1 0 0">
+					<joint name="threejoint" type="ball" limited="true" range="0 60"/>
+					<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+					<site name="site3" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
+					<body pos="0.2 0 0">
+						<joint name="fourjoint" type="ball" limited="true" range="0 60"/>
+						<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+						<site name="site4" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
+						<body pos="0.2 0 0">
+							<joint name="fivejoint" type="ball" limited="true" range="0 60"/>
+							<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
+							<site name="site5" size="0.1" pos="0.1 0 0" rgba="1 0 0 1"/>
+						</body>
+					</body>
+				</body>
+			</body>
+		</body>
+	</worldbody>
+	<actuator>
+		<motor name="motor1" joint="onejoint" gear="1"/>
+		<motor name="motor3" joint="threejoint" gear="1"/>
+		<motor name="motor4" joint="fourjoint" gear="1"/>
+		<motor name="motor5" joint="fivejoint" gear="1"/>
+	</actuator>
+	<sensor>
+		<touch name="test1" site="site1"/>
+		<touch name="test2" site="site2"/>
+		<touch name="test3" site="site3"/>
+		<touch name="test4" site="site4"/>
+		<touch name="test5" site="site5"/>
+	</sensor>
 </mujoco>
