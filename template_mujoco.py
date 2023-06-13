@@ -4,7 +4,7 @@ import numpy as np
 import os
 import random
 
-xml_path = 'hello.xml' #xml file (assumes this is in the same folder as this file)
+xml_path = 'output.xml' #xml file (assumes this is in the same folder as this file)
 simend = 30 #simulation time
 print_camera_config = 0 #set to 1 to print camera config
                         #this is useful for initializing view of the model)
@@ -24,12 +24,8 @@ def init_controller(model,data):
 def controller(model, data):
     #put the controller here. This function is called inside the simulation.
     #print(data.ctrl)
+    pass
     
-    for i in range(data.ctrl.shape[0]):
-        data.ctrl[i] = random.uniform(-5,5)
-        
-    
-
 def keyboard(window, key, scancode, act, mods):
     if act == glfw.PRESS and key == glfw.KEY_BACKSPACE:
         mj.mj_resetData(model, data)
