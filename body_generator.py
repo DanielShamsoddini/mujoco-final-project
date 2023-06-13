@@ -1,22 +1,22 @@
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 
-def generate_xml_code():
-    # Create the root element
-    root = ET.Element("mujoco")
+class BODY_GENERATOR:
+    def __init__(self):
+        self.root = ET.Element("mujoco")
+        self.option = ET.SubElement(self.root, "option")
+        self.option.set("gravity", "0 0 -9.81")
+        self.worldbody = ET.SubElement(self.root, "worldbody")
 
-    # Create the option element
-    option = ET.SubElement(root, "option")
-    option.set("gravity", "0 0 -9.81")
+        # Create the light element
+        self.light = ET.SubElement(self.worldbody, "light")
+        self.light.set("diffuse", ".5 .5 .5")
+        self.light.set("pos", "0 0 3")
+        self.light.set("dir", "0 0 -1")
+def generate_xml_code():
 
     # Create the worldbody element
-    worldbody = ET.SubElement(root, "worldbody")
-
-    # Create the light element
-    light = ET.SubElement(worldbody, "light")
-    light.set("diffuse", ".5 .5 .5")
-    light.set("pos", "0 0 3")
-    light.set("dir", "0 0 -1")
+    
 
     # Create the plane geom element
     plane_geom = ET.SubElement(worldbody, "geom")
@@ -144,39 +144,25 @@ def generate_xml_code():
     motor5.set("gear", "1")
 
     # Create the sensor element
-    sensor = ET.SubElement(root, "sensor")
-
-    touch1 = ET.SubElement(sensor, "touch")
-    touch1.set("name", "test1")
-    touch1.set("site", "site1")
-
-    touch2 = ET.SubElement(sensor, "touch")
-    touch2.set("name", "test2")
-    touch2.set("site", "site2")
-
-    touch3 = ET.SubElement(sensor, "touch")
-    touch3.set("name", "test3")
-    touch3.set("site", "site3")
-
-    touch4 = ET.SubElement(sensor, "touch")
-    touch4.set("name", "test4")
-    touch4.set("site", "site4")
-
-    touch5 = ET.SubElement(sensor, "touch")
-    touch5.set("name", "test5")
-    touch5.set("site", "site5")
+    make_sensors(root)
 
     # Create and return the XML tree
-    tree = ET.ElementTree(root)
-    return tree
 
+
+    def make_sensors(root):
+        sensor = ET.SubElement(root, "sensor")
+        for a in range(1,num_sensors+1):
+            touch1 = ET.SubElement(sensor, "touch")
+            touch1.set("name", "test"+str(a))
+            touch1.set("site", "site"+str(a))
 
 # Test the program
-generated_tree = generate_xml_code()
-generated_code = ET.tostring(generated_tree.getroot(), encoding="unicode")
-dom = minidom.parseString(generated_code)
+    def createFile(self):
+        generated_tree = ET.ElementTree(self.root)
+        generated_code = ET.tostring(generated_tree.getroot(), encoding="unicode")
+        dom = minidom.parseString(generated_code)
 
-# Output the pretty XML to a file
-output_file = "output.xml"
-with open(output_file, "w") as file:
-    file.write(dom.toprettyxml())
+        # Output the pretty XML to a file
+        output_file = "output.xml"
+        with open(output_file, "w") as file:
+            file.write(dom.toprettyxml())
