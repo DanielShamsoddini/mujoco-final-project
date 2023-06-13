@@ -4,6 +4,8 @@ doc = minidom.Document()
 
 doc.appendChild(doc.createElement('mujoco'))
 
+def 
+
 
 
 xml_str = doc.toprettyxml(indent ="\t") 

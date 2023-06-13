@@ -6,7 +6,7 @@ from scipy.spatial.transform import Rotation as R
 from neuron import NEURALNETWORK
 
 xml_path = 'hello.xml' #xml file (assumes this is in the same folder as this file)
-simend = 10 #simulation time
+simend = 20 #simulation time
 print_camera_config = 0 #set to 1 to print camera config
                         #this is useful for initializing view of the model)
 
@@ -33,7 +33,7 @@ def init_controller(model,data):
     pass
 
 
-neuralNetwork = NEURALNETWORK(20)
+neuralNetwork = NEURALNETWORK(5,4,4)
 
 
 def controller(model, data):
@@ -43,8 +43,7 @@ def controller(model, data):
     # for i in range(data.ctrl.shape[0]):
     #     data.ctrl[i] = random.uniform(-5,5)
     data.ctrl = np.zeros(data.ctrl.shape)
-    data.ctrl = neuralNetwork.returnValue(data)
-
+    data.ctrl = neuralNetwork.simulate_neural_network([data.sensor("test"+str(a+1)).data.copy()[0] for a in range(5)])
     print(data.ctrl)
     #print(data.sensor('test1').data.copy())
 
