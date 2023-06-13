@@ -133,4 +133,4 @@ class NEURALNETWORK:
         true_outputs = np.zeros(self.final_layer)
         for a,b in enumerate(list(outputs.keys())[-self.final_layer:]):
             true_outputs[a] = outputs[b]
-        return np.clip(0,10, true_outputs)
+        return np.clip(-10,10, true_outputs)
