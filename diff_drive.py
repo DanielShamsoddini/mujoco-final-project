@@ -3,7 +3,7 @@ from mujoco.glfw import glfw
 import numpy as np
 import os
 from scipy.spatial.transform import Rotation as R
-import random
+from neuron import NEURALNETWORK
 
 xml_path = 'hello.xml' #xml file (assumes this is in the same folder as this file)
 simend = 10 #simulation time
@@ -32,11 +32,21 @@ def init_controller(model,data):
     #initialize the controller here. This function is called once, in the beginning
     pass
 
+
+neuralNetwork = NEURALNETWORK(20)
+
+
 def controller(model, data):
     #put the controller here. This function is called inside the simulation.
     # pass
-    for i in range(data.ctrl.shape[0]):
-        data.ctrl[i] = random.uniform(-5,5)
+    
+    # for i in range(data.ctrl.shape[0]):
+    #     data.ctrl[i] = random.uniform(-5,5)
+    data.ctrl = np.zeros(data.ctrl.shape)
+    data.ctrl = neuralNetwork.returnValue(data)
+
+    print(data.ctrl)
+    #print(data.sensor('test1').data.copy())
 
 def keyboard(window, key, scancode, act, mods):
     if act == glfw.PRESS and key == glfw.KEY_BACKSPACE:
@@ -190,5 +200,5 @@ while not glfw.window_should_close(window):
     # process pending GUI events, call GLFW callbacks
     glfw.poll_events()
 
-print(data.qpos)
+#print(data.qpos)
 glfw.terminate()
