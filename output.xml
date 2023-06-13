@@ -8,19 +8,19 @@
 			<geom size="0.1" rgba="0 0 1 1"/>
 			<joint type="free"/>
 			<site name="site1" size="0.1" rgba="1 0 0 1"/>
-			<body pos="0.2 0 0">
-				<joint name="onejoint" pos="-0.1 0 0" type="ball" limited="true" range="0 60"/>
-				<geom size="0.1" rgba="0 0 1 1"/>
-				<site name="site2" pos="0 0 0" size="0.1" rgba="1 0 0 1"/>
-				<body pos="0.1 0 0">
+			<body pos="0.1 0 0">
+				<joint name="onejoint" type="ball" limited="true" range="0 60"/>
+				<geom size="0.1" pos="0.1 0 0" rgba="0 0 1 1"/>
+				<site name="site2" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
+				<body pos="0.2 0 0">
 					<joint name="threejoint" type="ball" limited="true" range="0 60"/>
 					<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
 					<site name="site3" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-					<body pos="0.2 0 0">
+					<body pos="0.1 0.1 0">
 						<joint name="fourjoint" type="ball" limited="true" range="0 60"/>
-						<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-						<site name="site4" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-						<body pos="0.2 0 0">
+						<geom size="0.1" rgba="0 0 1 1" pos="0 0.1 0"/>
+						<site name="site4" pos="0 0.1 0" size="0.1" rgba="1 0 0 1"/>
+						<body pos="0.1 0.1 0.1">
 							<joint name="fivejoint" type="ball" limited="true" range="0 60"/>
 							<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
 							<site name="site5" size="0.1" pos="0.1 0 0" rgba="1 0 0 1"/>

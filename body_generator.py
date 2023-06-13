@@ -148,10 +148,18 @@ def generate_xml_code():
 
     # Create and return the XML tree
 
+    def make_motors():
+        actuator = ET.SubElement(self.root, "actuator")
+        for a in range(1,self.num_motors+1):
+            motor = ET.SubElement(actuator, "motor")
+            motor.set("name", "motor"+str(a))
+            motor.set("joint", str(a)+"joint")
+            motor.set("gear", "1")
 
-    def make_sensors(root):
-        sensor = ET.SubElement(root, "sensor")
-        for a in range(1,num_sensors+1):
+
+    def make_sensors():
+        sensor = ET.SubElement(self.root, "sensor")
+        for a in range(1,self.num_sensors+1):
             touch1 = ET.SubElement(sensor, "touch")
             touch1.set("name", "test"+str(a))
             touch1.set("site", "site"+str(a))
