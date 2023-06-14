@@ -21,7 +21,7 @@ class BODY_GENERATOR:
         self.bodyc= c.numberofspheres - 1
         self.num_sensors= self.bodyc
         self.num_motors = self.bodyc
-        self.generate_xml("0 0 1", self.bodyc)
+        self.generate_xml("0 0 0.1", self.bodyc)
         self.make_motors()
         self.make_sensors()
 
@@ -64,7 +64,7 @@ class BODY_GENERATOR:
             motor = ET.SubElement(actuator, "motor")
             motor.set("name", "motor"+str(a))
             motor.set("joint", "joint"+str(a))
-            motor.set("gear", "1")
+            motor.set("gear", "10")
 
 
     def make_sensors(self):

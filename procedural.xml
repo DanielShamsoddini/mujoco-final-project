@@ -4,7 +4,7 @@
 	<worldbody>
 		<light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/>
 		<geom type="plane" size="10 10 0.1" rgba=".9 0 0 1"/>
-		<body pos="0 0 1">
+		<body pos="0 0 0.1">
 			<joint type="free"/>
 			<geom size="0.1" type="sphere" rgba="0 0 1 1" pos="0.1 0 0"/>
 			<site name="site0" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
@@ -20,41 +20,20 @@
 						<joint name="joint3" type="ball" limited="true" range="0 60"/>
 						<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
 						<site name="site3" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-						<body pos="0.2 0 0">
-							<joint name="joint4" type="ball" limited="true" range="0 60"/>
-							<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-							<site name="site4" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-							<body pos="0.2 0 0">
-								<joint name="joint5" type="ball" limited="true" range="0 60"/>
-								<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-								<site name="site5" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-								<body pos="0.2 0 0">
-									<joint name="joint6" type="ball" limited="true" range="0 60"/>
-									<geom size="0.1" rgba="0 0 1 1" pos="0.1 0 0"/>
-									<site name="site6" pos="0.1 0 0" size="0.1" rgba="1 0 0 1"/>
-								</body>
-							</body>
-						</body>
 					</body>
 				</body>
 			</body>
 		</body>
 	</worldbody>
 	<actuator>
-		<motor name="motor1" joint="joint1" gear="1"/>
-		<motor name="motor2" joint="joint2" gear="1"/>
-		<motor name="motor3" joint="joint3" gear="1"/>
-		<motor name="motor4" joint="joint4" gear="1"/>
-		<motor name="motor5" joint="joint5" gear="1"/>
-		<motor name="motor6" joint="joint6" gear="1"/>
+		<motor name="motor1" joint="joint1" gear="10"/>
+		<motor name="motor2" joint="joint2" gear="10"/>
+		<motor name="motor3" joint="joint3" gear="10"/>
 	</actuator>
 	<sensor>
 		<touch name="test0" site="site0"/>
 		<touch name="test1" site="site1"/>
 		<touch name="test2" site="site2"/>
 		<touch name="test3" site="site3"/>
-		<touch name="test4" site="site4"/>
-		<touch name="test5" site="site5"/>
-		<touch name="test6" site="site6"/>
 	</sensor>
 </mujoco>

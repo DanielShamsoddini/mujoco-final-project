@@ -1,3 +1,3 @@
 
 
-numberofspheres = 7
+numberofspheres = 4
