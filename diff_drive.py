@@ -151,7 +151,7 @@ glfw.set_scroll_callback(window, scroll)
 # cam.elevation = -45
 # cam.distance = 2
 # cam.lookat = np.array([0.0, 0.0, 0])
-cam.azimuth = 90 ; cam.elevation = -45 ; cam.distance =  7
+cam.azimuth = 90 ; cam.elevation = -45 ; cam.distance =  3
 cam.lookat =np.array([ 0.0 , 0.0 , 0.0 ])
 
 #initialize the controller
