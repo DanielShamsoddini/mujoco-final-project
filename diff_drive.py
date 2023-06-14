@@ -19,16 +19,6 @@ lastx = 0
 lasty = 0
 
 
-def quat2euler(quat_mujoco):
-    #mujocoy quat is constant,x,y,z,
-    #scipy quaut is x,y,z,constant
-    quat_scipy = np.array([quat_mujoco[3],quat_mujoco[0],quat_mujoco[1],quat_mujoco[2]])
-
-    r = R.from_quat(quat_scipy)
-    euler = r.as_euler('xyz', degrees=True)
-
-    return euler
-
 def init_controller(model,data):
     #initialize the controller here. This function is called once, in the beginning
     pass
