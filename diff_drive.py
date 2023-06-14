@@ -4,8 +4,9 @@ import numpy as np
 import os
 from scipy.spatial.transform import Rotation as R
 from neuron import NEURALNETWORK
+from body_generator import BODY_GENERATOR
 
-xml_path = 'output.xml' #xml file (assumes this is in the same folder as this file)
+xml_path = 'procedural.xml' #xml file (assumes this is in the same folder as this file)
 simend = 20 #simulation time
 print_camera_config = 0 #set to 1 to print camera config
                         #this is useful for initializing view of the model)
@@ -32,8 +33,10 @@ def init_controller(model,data):
     #initialize the controller here. This function is called once, in the beginning
     pass
 
+test = BODY_GENERATOR()
+test.createFile()
+neuralNetwork = NEURALNETWORK(test.returnval()+1,test.returnval()+1,test.returnval())
 
-neuralNetwork = NEURALNETWORK(5,4,4)
 
 
 def controller(model, data):
@@ -43,7 +46,8 @@ def controller(model, data):
     # for i in range(data.ctrl.shape[0]):
     #     data.ctrl[i] = random.uniform(-5,5)
     data.ctrl = np.zeros(data.ctrl.shape)
-    data.ctrl = neuralNetwork.simulate_neural_network([data.sensor("test"+str(a+1)).data.copy()[0] for a in range(5)])
+    #print(data.sensor("test110"))
+    data.ctrl = neuralNetwork.simulate_neural_network([data.sensor("test"+str(a)).data.copy()[0] for a in range(test.returnval()+1)])
     print(data.ctrl)
     #print(data.sensor('test1').data.copy())
 
